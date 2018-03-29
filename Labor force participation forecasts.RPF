@@ -1,0 +1,122 @@
+OPEN DATA "C:\Users\Miles\Desktop\RMHI Docs\Paper sources\Labor Force Forecast Docs\Lab Force Participation Source files\Labor Force Participation Master.xls"
+CALENDAR(A) 1948:1
+DATA(FORMAT=XLS,ORG=COLUMNS,SHEET="Working CLFP") 1948:01 2017:01 CLFP
+@bjident clfp
+BOXJENK(CONST,AR=2,DEFINE=AR2MODEL) CLFP / AR2RESID
+
+Box-Jenkins - Estimation by LS Gauss-Newton
+Convergence in     3 Iterations. Final criterion was  0.0000021 <=  0.0000100
+
+Dependent Variable CLFP
+Annual Data From 1950:01 To 2017:01
+Usable Observations                        68
+Degrees of Freedom                         65
+Centered R^2                        0.9912814
+R-Bar^2                             0.9910131
+Uncentered R^2                      0.9999805
+Mean of Dependent Variable       63.001470588
+Std Error of Dependent Variable   3.008271812
+Standard Error of Estimate        0.285181959
+Sum of Squared Residuals         5.2863687354
+Regression F(2,65)                  3695.1477
+Significance Level of F             0.0000000
+Log Likelihood                        -9.6390
+Durbin-Watson Statistic                2.0810
+Q(17-2)                               15.0926
+Significance Level of Q             0.4447670
+
+    Variable                        Coeff      Std Error      T-Stat      Signif
+************************************************************************************
+1.  CONSTANT                      64.59213885   2.66361706     24.24978  0.00000000
+2.  AR{1}                          1.51826052   0.10436152     14.54809  0.00000000
+3.  AR{2}                         -0.53315253   0.10296982     -5.17776  0.00000236
+
+@bjident ar2resid
+UFORECAST(TO=2020:01,EQUATION=AR2MODEL,PRINT) CASTAR2
+
+ Entry      CLFP
+ 2018:01 62.82668854
+ 2019:01 62.86720870
+ 2020:01 62.91449979
+
+GRAPH(STYLE=LINE) 1
+# CLFP
+SET TIMESQ * 2020:01 = time^2
+AR1(METHOD=HILU,DEFINE=AR1TIMESQ) CLFP / AR1TIMESQRESID
+# Constant TIME TIMESQ
+
+Regression with AR1 - Estimation by Hildreth-Lu Search
+Dependent Variable CLFP
+Annual Data From 1949:01 To 2017:01
+Usable Observations                        69
+Degrees of Freedom                         65
+Centered R^2                        0.9913706
+R-Bar^2                             0.9909724
+Uncentered R^2                      0.9999804
+Mean of Dependent Variable       62.943478261
+Std Error of Dependent Variable   3.024676855
+Standard Error of Estimate        0.287386222
+Sum of Squared Residuals         5.3684046547
+Regression F(3,65)                  2489.1427
+Significance Level of F             0.0000000
+Log Likelihood                        -9.8084
+Durbin-Watson Statistic                1.2852
+Q(17-1)                               41.7317
+Significance Level of Q             0.0004326
+
+    Variable                        Coeff      Std Error      T-Stat      Signif
+*************************************************************@***********************
+1.  Constant                     -73.73905599  30.64082846     -2.40656  0.01895471
+2.  TIME                           3.00254615   0.64007101      4.69096  0.00001443
+3.  TIMESQ                        -0.02008372   0.00411760     -4.87753  0.00000727
+************************************************************************************
+4.  RHO                            0.97631009   0.02404667     40.60064  0.00000000
+
+@bjident ar1timesqresid
+@bjident ar2resid
+@regcrits
+
+Information Criteria
+AIC          0.436
+SBC          0.599
+Hannan-Quinn 0.500
+(log) FPE    0.436
+
+BOXJENK(CONST,AR=2,DEFINE=AR2MAGAIN) CLFP / AR2RAGAIN
+
+Box-Jenkins - Estimation by LS Gauss-Newton
+Convergence in     3 Iterations. Final criterion was  0.0000021 <=  0.0000100
+
+Dependent Variable CLFP
+Annual Data From 1950:01 To 2017:01
+Usable Observations                        68
+Degrees of Freedom                         65
+Centered R^2                        0.9912814
+R-Bar^2                             0.9910131
+Uncentered R^2                      0.9999805
+Mean of Dependent Variable       63.001470588
+Std Error of Dependent Variable   3.008271812
+Standard Error of Estimate        0.285181959
+Sum of Squared Residuals         5.2863687354
+Regression F(2,65)                  3695.1477
+Significance Level of F             0.0000000
+Log Likelihood                        -9.6390
+Durbin-Watson Statistic                2.0810
+Q(17-2)                               15.0926
+Significance Level of Q             0.4447670
+
+    Variable                        Coeff      Std Error      T-Stat      Signif
+************************************************************************************
+1.  CONSTANT                      64.59213885   2.66361706     24.24978  0.00000000
+2.  AR{1}                          1.51826052   0.10436152     14.54809  0.00000000
+3.  AR{2}                         -0.53315253   0.10296982     -5.17776  0.00000236
+
+@regcrits
+
+Information Criteria
+AIC          0.401
+SBC          0.532
+Hannan-Quinn 0.453
+(log) FPE    0.401
+
+
